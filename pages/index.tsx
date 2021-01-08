@@ -5,6 +5,9 @@ import { getSortedPostsData } from '../lib/posts'
 import Link from 'next/link'
 import Date from '../components/date'
 import { GetStaticProps } from 'next'
+import useSWR from 'swr'
+import { useEffect, useState } from 'react'
+
 
 export const getStaticProps: GetStaticProps = async () => {
   const allPostsData = getSortedPostsData()
@@ -15,7 +18,24 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 }
 
+
 export default function Home({ allPostsData }: {allPostsData: {date: string, title: string, id: string}}) {
+  const [ip, setIP] = useState("x.x.x.x");
+
+  useEffect(() => {
+    fetch('https://httpbin.org/ip')
+      .then(res => res.json())
+      .then(
+        (result) => {
+          console.log(result)
+          setIP(result.origin)
+        },
+        (error) => {
+          setIP("failed to fetch my ip")
+        }
+      )
+
+  });
   return (
     <Layout home>
       <Head>
@@ -23,6 +43,7 @@ export default function Home({ allPostsData }: {allPostsData: {date: string, tit
       </Head>
       <section className={utilStyles.headingMd}>
         <p>Hi, I'm Toshi Kawasaki from Japan. Let's talk!</p>
+        <p>FROM: {ip}</p>
         <p>
           (This is a sample website - you’ll be building a site like this on{' '}
           <a href="https://nextjs.org/learn">our Next.js tutorial</a>.)
