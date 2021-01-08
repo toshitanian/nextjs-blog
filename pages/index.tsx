@@ -5,44 +5,44 @@ import { getSortedPostsData } from '../lib/posts'
 import Link from 'next/link'
 import Date from '../components/date'
 import { GetStaticProps } from 'next'
-import useSWR from 'swr'
 import { useEffect, useState } from 'react'
-
 
 export const getStaticProps: GetStaticProps = async () => {
   const allPostsData = getSortedPostsData()
   return {
     props: {
-      allPostsData
-    }
+      allPostsData,
+    },
   }
 }
 
-
-export default function Home({ allPostsData }: {allPostsData: {date: string, title: string, id: string}}) {
-  const [ip, setIP] = useState("x.x.x.x");
+export default function Home({
+  allPostsData,
+}: {
+  allPostsData: { date: string; title: string; id: string }
+}) {
+  const [ip, setIP] = useState('x.x.x.x')
 
   useEffect(() => {
     fetch('https://httpbin.org/ip')
-      .then(res => res.json())
+      .then((res) => res.json())
       .then(
         (result) => {
           console.log(result)
           setIP(result.origin)
         },
-        (error) => {
-          setIP("failed to fetch my ip")
+        (_error) => {
+          setIP('failed to fetch my ip')
         }
       )
-
-  });
+  })
   return (
     <Layout home>
       <Head>
         <title>{siteTitle}</title>
       </Head>
       <section className={utilStyles.headingMd}>
-        <p>Hi, I'm Toshi Kawasaki from Japan. Let's talk!</p>
+        <p>Hi, I&apos;m Toshi Kawasaki from Japan. Let&apos;s talk!</p>
         <p>FROM: {ip}</p>
         <p>
           (This is a sample website - you’ll be building a site like this on{' '}
