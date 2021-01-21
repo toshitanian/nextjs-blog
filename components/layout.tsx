@@ -6,13 +6,7 @@ import Link from 'next/link'
 const name = 'Toshi Kawasaki'
 export const siteTitle = 'Welcome to Toshi homepage !'
 
-export default function Layout({
-  children,
-  home,
-}: {
-  children: React.ReactNode
-  home?: boolean
-}): React.FunctionComponent<Props> {
+export default function Layout({ children, home }: { children: React.ReactNode; home?: boolean }) {
   return (
     <div className={styles.container}>
       <Head>
